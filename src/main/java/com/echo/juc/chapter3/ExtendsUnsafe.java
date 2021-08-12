@@ -33,19 +33,3 @@ public class ExtendsUnsafe {
         t.method1(200);
     }
 }
-
-public class MyServlet extends HttpServlet {
-    // 是否安全？
-    private UserService userService = new UserServiceImpl();
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
-        userService.update(...);
-    }
-}
-public class UserServiceImpl implements UserService {
-    // 记录调用次数
-    private int count = 0;
-    public void update() {
-// ...
-        count++;
-    }
-}
