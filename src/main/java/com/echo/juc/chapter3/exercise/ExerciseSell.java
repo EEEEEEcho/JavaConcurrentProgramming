@@ -23,6 +23,7 @@ public class ExerciseSell {
             Thread t = new Thread(() -> {
         // 分析这里的竞态条件
                 int count = ticketWindow.sell(randomAmount());
+                //这里没有线程安全问题，vector的add方法实现是线程安全的，加了sychronized关键字的
                 sellCount.add(count);
             });
             list.add(t);
@@ -70,7 +71,17 @@ class TicketWindow {
      * @param amount 购买的数量
      * @return
      */
-    public int sell(int amount) {
+//    public int sell(int amount) {
+//        if (this.count >= amount) {
+//            this.count -= amount;
+//            return amount;
+//        } else {
+//            return 0;
+//        }
+//    }
+
+    //改进，加锁锁this
+    public synchronized int sell(int amount) {
         if (this.count >= amount) {
             this.count -= amount;
             return amount;
