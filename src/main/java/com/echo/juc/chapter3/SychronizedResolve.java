@@ -24,8 +24,8 @@ public class SychronizedResolve {
         }, "t2");
         t1.start();
         t2.start();
-        t1.join();
-        t2.join();
+        t1.join();//主线程等待t1执行完成
+        t2.join();//主线程等待t2执行完成
         log.debug("count :{}",count);
     }
 }

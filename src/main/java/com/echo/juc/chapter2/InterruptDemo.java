@@ -24,7 +24,6 @@ public class InterruptDemo {
         TimeUnit.SECONDS.sleep(1);
         //打断
         t1.interrupt();
-
         log.debug("interrupt flg {}",t1.isInterrupted());
     }
 }
