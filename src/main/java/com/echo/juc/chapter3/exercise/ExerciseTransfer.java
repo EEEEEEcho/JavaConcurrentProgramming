@@ -39,6 +39,7 @@ public class ExerciseTransfer {
 
 class Account{
     private int money;
+    private static final Object lock = new Object();
 
     public Account(int money){
         this.money = money;
@@ -51,10 +52,10 @@ class Account{
     public void setMoney(int money) {
         this.money = money;
     }
-
     //转账
     public void transfer(Account another,int amount){
-        synchronized (Account.class){
+        synchronized (lock){
+//        synchronized (Account.class){
             if (this.money >= amount){
                 this.setMoney(this.money - amount);
                 another.setMoney(another.getMoney() + amount);
