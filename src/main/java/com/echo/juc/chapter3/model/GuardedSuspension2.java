@@ -1,6 +1,35 @@
 package com.echo.juc.chapter3.model;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.TimeUnit;
+@Slf4j(topic = "c.GuardedSuspension2")
 public class GuardedSuspension2 {
+
+
+    public static void main(String[] args) {
+        GuardObject2 guardObject = new GuardObject2();
+        new Thread(() -> {
+            //等待结果
+            log.debug("等待结果");
+            String result = (String) guardObject.get(3000);
+            log.debug("获取到了下载结果:{}",result);
+        },"线程一").start();
+
+        new Thread(() -> {
+            log.debug("执行下载");
+            try {
+                //等待两秒
+                TimeUnit.SECONDS.sleep(2);
+                //构造下载结果
+                String downLoad = "事情为什么总是向着不好的地方发展。";
+                //将下载结果传递
+                guardObject.complete(downLoad);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        },"线程二").start();
+    }
 }
 /**
  * 桥梁，用来线程间消息的传递
