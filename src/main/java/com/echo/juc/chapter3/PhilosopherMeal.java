@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 哲学家就餐问题
@@ -23,8 +24,30 @@ public class PhilosopherMeal {
     }
 }
 
+/**
+ * 普通版本的筷子
+ */
+//@Slf4j(topic = "c.Chopstick")
+//class Chopstick{
+//    String name;
+//
+//    public Chopstick(String name){
+//        this.name = name;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "筷子{" +
+//                "name='" + name + '\'' +
+//                '}';
+//    }
+//}
+
+/**
+ * 继承了ReentrantLock之后的筷子
+  */
 @Slf4j(topic = "c.Chopstick")
-class Chopstick{
+class Chopstick extends ReentrantLock {
     String name;
 
     public Chopstick(String name){
@@ -58,12 +81,35 @@ class Philosopher extends Thread{
     @SneakyThrows   //将当前方法抛出的异常，包装成RuntimeException，骗过编译器，使得调用点可以不用显示处理异常信息。
     @Override
     public void run() {
+        //使用synchronized 以及传统筷子导致死锁
+//        while (true){
+//            synchronized (left){
+//                log.debug(getName() + "拿到了左边的筷子");
+//                synchronized (right){
+//                    log.debug(getName() + "拿到了右边的筷子");
+//                    eat();
+//                }
+//            }
+//        }
+        //使用继承了ReentrantLock之后的筷子
         while (true){
-            synchronized (left){
-                log.debug(getName() + "拿到了左边的筷子");
-                synchronized (right){
-                    log.debug(getName() + "拿到了右边的筷子");
-                    eat();
+            //尝试获取左手筷子
+            if (left.tryLock()){
+                //获取到锁之后，要加try-finally块。来释放锁
+                try {
+                    //尝试获取右手筷子
+                    if (right.tryLock()){
+                        //如果右手的筷子也获取到了，那么就吃饭
+                        try {
+                            eat();
+                        }
+                        finally {
+                            right.unlock();     //释放右手的筷子
+                        }
+                    }
+                }
+                finally {
+                    left.unlock();//释放左手的筷子
                 }
             }
         }
