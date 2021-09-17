@@ -24,7 +24,7 @@ class TwoParse {
     //停止标记
     private volatile boolean stop = false;
     //线程是否执行过start
-    private boolean starting = false;
+    private volatile boolean starting = false;
 
     //启动监控线程
     public void start() {
@@ -60,5 +60,3 @@ class TwoParse {
         monitor.interrupt();
     }
 }
-
-
