@@ -15,33 +15,31 @@ public class ReentryLockDemo1 {
         method1();
     }
 
-    public static void method1(){
+    public static void method1() {
         lock.lock();    //这相当于synchronized的开始部分，中间部分加锁
         try {
             log.debug("execute method1");
             method2();
-        }
-        finally {
+        } finally {
             lock.unlock();//这相当于synchronized的结束部分
         }
     }
-    public static void method2(){
+
+    public static void method2() {
         lock.lock();    //对同一个锁对象lock 进行加锁
         try {
             log.debug("execute method2");
             method3();
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
 
-    public static void method3(){
+    public static void method3() {
         lock.lock();
         try {
             log.debug("execute method3");
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
