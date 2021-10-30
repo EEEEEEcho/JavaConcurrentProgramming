@@ -41,47 +41,47 @@ public class ImitationGames {
         System.out.println("\n欢迎来到英雄联盟");
         pool.shutdown();
     }
-    public void test(){
-        ResTemplate template = new ResTemplate();
-        log.debug("begin");
-        //取得订单信息
-        Map<String,Object> order = template.getForObject("http://localhost:8080/order/{1}",Map.class,1);
-        log.debug("order is : {}",order);
-        //取得商品信息
-        Map<String,Object> product1 = template.getForObject("http://localhost:8080/product/{1}",Map.class,1);
-        Map<String,Object> product2 = template.getForObject("http://localhost:8080/product/{2}",Map.class,2);
-        log.debug("product is : {},{}",product1,product2);
-        //快递信息
-        Map<String,Object> express = template.getForObject("http://localhost:8080/express/{1}",Map.class,1);
-        log.debug("express id : {}",express);
-
-
-
-    }
-    public void test2(){
-        ResTemplate template = new ResTemplate();
-        log.debug("begin");
-        ExecutorService pool = Executors.newCachedThreadPool();
-        Future<Map<String,Object>> order = pool.submit(() -> {
-            //取得订单信息
-            return template.getForObject("http://localhost:8080/order/{1}", Map.class, 1);
-        });
-        Future<Map<String,Object>> product1 = pool.submit(() -> {
-            //取得商品信息
-            return template.getForObject("http://localhost:8080/product/{1}", Map.class, 1);
-        });
-
-        Future<Map<String,Object>> product2 = pool.submit(() -> {
-            return template.getForObject("http://localhost:8080/product/{2}", Map.class, 2);
-        });
-        Future<Map<String,Object>> express = pool.submit(() -> {
-            //快递信息
-            return template.getForObject("http://localhost:8080/express/{1}", Map.class, 1);
-        });
-        System.out.println(order.get());
-        System.out.println(product1.get());
-        System.out.println(product2.get());
-        System.out.println(express.get());
-        //do other logic
-    }
+//    public void test(){
+//        ResTemplate template = new ResTemplate();
+//        log.debug("begin");
+//        //取得订单信息
+//        Map<String,Object> order = template.getForObject("http://localhost:8080/order/{1}",Map.class,1);
+//        log.debug("order is : {}",order);
+//        //取得商品信息
+//        Map<String,Object> product1 = template.getForObject("http://localhost:8080/product/{1}",Map.class,1);
+//        Map<String,Object> product2 = template.getForObject("http://localhost:8080/product/{2}",Map.class,2);
+//        log.debug("product is : {},{}",product1,product2);
+//        //快递信息
+//        Map<String,Object> express = template.getForObject("http://localhost:8080/express/{1}",Map.class,1);
+//        log.debug("express id : {}",express);
+//
+//
+//
+//    }
+//    public void test2(){
+//        ResTemplate template = new ResTemplate();
+//        log.debug("begin");
+//        ExecutorService pool = Executors.newCachedThreadPool();
+//        Future<Map<String,Object>> order = pool.submit(() -> {
+//            //取得订单信息
+//            return template.getForObject("http://localhost:8080/order/{1}", Map.class, 1);
+//        });
+//        Future<Map<String,Object>> product1 = pool.submit(() -> {
+//            //取得商品信息
+//            return template.getForObject("http://localhost:8080/product/{1}", Map.class, 1);
+//        });
+//
+//        Future<Map<String,Object>> product2 = pool.submit(() -> {
+//            return template.getForObject("http://localhost:8080/product/{2}", Map.class, 2);
+//        });
+//        Future<Map<String,Object>> express = pool.submit(() -> {
+//            //快递信息
+//            return template.getForObject("http://localhost:8080/express/{1}", Map.class, 1);
+//        });
+//        System.out.println(order.get());
+//        System.out.println(product1.get());
+//        System.out.println(product2.get());
+//        System.out.println(express.get());
+//        //do other logic
+//    }
 }
