@@ -14,6 +14,7 @@ public class InterruptDemo2 {
                     //在主线程调用t1.interrupted()方法之后，会将打断标记置为真，
                     //在该线程中，判断打断标记是否为真，如果为真，则自己将自己打断
                     boolean interrupted = Thread.currentThread().isInterrupted();
+                    log.debug("{}",interrupted);
                     if (interrupted){
                         log.debug("被打断了，退出循环");
                         break;

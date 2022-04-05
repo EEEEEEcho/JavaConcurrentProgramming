@@ -1,0 +1,7 @@
+WeChat Mini-Programs run on the WeChat platform, and can
+utilize various functions provided by WeChat, e.g., user management, file access, network access, location, camera, and payment.
+WeChat Mini-Programs do not have a palpable installation process
+as Android and iOS applications, but users can have an experience as smooth as native Android and iOS applications. WeChat
+Mini-Programs have been widely used in many scenarios, e.g., ecommerce, transaction, and education. Nowadays, there are more
+than 5.5 million Mini-Programs running on the WeChat platform,
+and there are more than 400 million WeChat users using MiniPrograms every day [57].
