@@ -66,5 +66,6 @@ public class ScheduledThreadPoolDemo {
         pool.schedule(() -> {
             log.debug("task2");
         },1,TimeUnit.SECONDS);
+        pool.shutdown();
     }
 }

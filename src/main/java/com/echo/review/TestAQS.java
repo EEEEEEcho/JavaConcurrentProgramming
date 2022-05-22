@@ -6,10 +6,17 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
 public class TestAQS {
+<<<<<<< HEAD
 }
 class MyLock implements Lock{
     private MySync sync = new MySync();
 
+=======
+
+}
+class MyLock implements Lock{
+    private MySync sync = new MySync();
+>>>>>>> a98f59ae65516d65060f60eff5139e7e98809d18
     @Override
     public void lock() {
         sync.acquire(1);
@@ -27,7 +34,11 @@ class MyLock implements Lock{
 
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+<<<<<<< HEAD
         return sync.tryAcquireNanos(1, unit.toNanos(time));
+=======
+        return sync.tryAcquireNanos(1,unit.toNanos(time));
+>>>>>>> a98f59ae65516d65060f60eff5139e7e98809d18
     }
 
     @Override
@@ -41,9 +52,17 @@ class MyLock implements Lock{
     }
 
     class MySync extends AbstractQueuedSynchronizer{
+<<<<<<< HEAD
         @Override
         protected boolean tryAcquire(int arg) {
             if (compareAndSetState(0,1)){
+=======
+
+        @Override
+        protected boolean tryAcquire(int arg) {
+            //cas设置独占锁
+            if (compareAndSetState(0,arg)){
+>>>>>>> a98f59ae65516d65060f60eff5139e7e98809d18
                 setExclusiveOwnerThread(Thread.currentThread());
                 return true;
             }
@@ -59,11 +78,19 @@ class MyLock implements Lock{
 
         @Override
         protected boolean isHeldExclusively() {
+<<<<<<< HEAD
             return getState() == 1;
+=======
+            return getState() == 1; //看state是否为1
+>>>>>>> a98f59ae65516d65060f60eff5139e7e98809d18
         }
 
         public Condition newCondition(){
             return new ConditionObject();
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a98f59ae65516d65060f60eff5139e7e98809d18

@@ -54,8 +54,8 @@ class Account{
     }
     //转账
     public void transfer(Account another,int amount){
-        synchronized (lock){
-//        synchronized (Account.class){
+        //synchronized (lock){
+        synchronized (Account.class){
             if (this.money >= amount){
                 this.setMoney(this.money - amount);
                 another.setMoney(another.getMoney() + amount);

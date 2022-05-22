@@ -10,6 +10,7 @@ import java.util.concurrent.*;
 public class SubmitDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        testSubmit();
+//        testInvokeAll();
         testInvokeAny();
     }
 
@@ -25,6 +26,7 @@ public class SubmitDemo {
         });
         //拿到线程的执行结果
         log.debug("future get {}",result.get());
+        pool.shutdown();
     }
 
     private static void testInvokeAll() throws InterruptedException, ExecutionException {
@@ -54,7 +56,7 @@ public class SubmitDemo {
                 e.printStackTrace();
             }
         });
-
+        pool.shutdown();
     }
 
     private static void testInvokeAny() throws InterruptedException, ExecutionException {
